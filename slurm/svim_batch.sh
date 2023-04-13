@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J svim
-#SBATCH -N 1
+#SBATCH -N 4
 #SBATCH -o /exports/sascstudent/samvank/logs/slurm-%j-%x.out
-#SBATCH -t 3:00:00
+#SBATCH -t 24:00:00
 #SBATCH -D /exports/sascstudent/samvank/
 #SBATCH --mem-per-cpu 20G
 
@@ -12,6 +12,9 @@ conda activate /exports/sascstudent/samvank/conda2
 
 job="svim"
 echo "conda activated, now starting ${job}"
-svim alignment workfolder/svim data/bamData/NA12878-minion-ul_GRCh38.bam data/refData/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta
+svim alignment \
+  workfolder/HG005/SVIM \
+  data/bamData/HG005/HG005_GRCh38_ONT-UL_UCSC_20200109.phased.bam \
+  data/refData/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta
 mv workfolder/svim/variants.vcf output/SVIMFullOut/
 echo "${job} finished"

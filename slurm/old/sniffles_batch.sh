@@ -2,7 +2,7 @@
 #SBATCH -J sniffles
 #SBATCH -N 1
 #SBATCH -o /exports/sascstudent/samvank/logs/slurm-%j-%x.out
-#SBATCH -t 24:00:00
+#SBATCH -t 3:00:00
 #SBATCH -D /exports/sascstudent/samvank/
 #SBATCH --mem-per-cpu 20G
 
@@ -12,8 +12,5 @@ conda activate /exports/sascstudent/samvank/conda2
 
 job="sniffles"
 echo "conda activated, now starting ${job}"
-sniffles \
-  -i data/bamData/HG005/HG005_GRCh38_ONT-UL_UCSC_20200109.phased.bam \
-  -v output/HG005/snifflesFullOut/snifflesFullOut.vcf \
-  --allow-overwrite
+sniffles -i data/bamData/chr1.bam -v output/snifflesOut/snifflesOut.vcf
 echo "${job} finished"

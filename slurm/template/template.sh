@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J sniffles
+#SBATCH -J name
 #SBATCH -N 1
 #SBATCH -o /exports/sascstudent/samvank/logs/slurm-%j-%x.out
 #SBATCH -t 24:00:00
@@ -10,10 +10,7 @@ echo "activating conda"
 source /share/software/tools/miniconda/3.7/4.7.12/etc/profile.d/conda.sh
 conda activate /exports/sascstudent/samvank/conda2
 
-job="sniffles"
+job="exampleTask"
 echo "conda activated, now starting ${job}"
-sniffles \
-  -i data/bamData/HG005/HG005_GRCh38_ONT-UL_UCSC_20200109.phased.bam \
-  -v output/HG005/snifflesFullOut/snifflesFullOut.vcf \
-  --allow-overwrite
+#do job
 echo "${job} finished"

@@ -13,11 +13,10 @@ conda activate /exports/sascstudent/samvank/conda2
 job="clair3"
 echo "conda activated, now starting ${job}"
 run_clair3.sh \
-  --bam_fn=data/bamData/chr1.bam \
+  --bam_fn=data/bamData/HG005/HG005_GRCh38_ONT-UL_UCSC_20200109.phased.bam \
   --ref_fn=data/refData/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta \
   --platform='ont' \
   --model_path=conda2/bin/models/ont \
   --threads=4 \
-  --output=output/clair3Out \
-  --bed_fn=data/bedData/short.bed
+  --output=output/HG005/clair3FullOut \
 echo "${job} finished"

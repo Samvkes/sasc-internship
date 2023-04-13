@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH -J sniffles
+#SBATCH -J svim
 #SBATCH -N 1
 #SBATCH -o /exports/sascstudent/samvank/logs/slurm-%j-%x.out
-#SBATCH -t 24:00:00
+#SBATCH -t 3:00:00
 #SBATCH -D /exports/sascstudent/samvank/
 #SBATCH --mem-per-cpu 20G
 
@@ -10,10 +10,8 @@ echo "activating conda"
 source /share/software/tools/miniconda/3.7/4.7.12/etc/profile.d/conda.sh
 conda activate /exports/sascstudent/samvank/conda2
 
-job="sniffles"
+job="svim"
 echo "conda activated, now starting ${job}"
-sniffles \
-  -i data/bamData/HG005/HG005_GRCh38_ONT-UL_UCSC_20200109.phased.bam \
-  -v output/HG005/snifflesFullOut/snifflesFullOut.vcf \
-  --allow-overwrite
+svim alignment workfolder/svim data/bamData/NA12878-minion-ul_GRCh38.bam data/refData/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta
+mv workfolder/svim/variants.vcf output/SVIMFullOut/
 echo "${job} finished"

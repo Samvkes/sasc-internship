@@ -12,6 +12,6 @@ conda activate /exports/sascstudent/samvank/conda2
 
 job="svim"
 echo "conda activated, now starting ${job}"
-svim alignment workfolder/svim data/bamData/chr1.bam data/refData/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta
-mv workfolder/svim/variants.vcf output/SVIMOut/
+svim alignment workfolder/svim data/bamData/NA12878-minion-ul_GRCh38.bam data/refData/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta
+mv workfolder/svim/variants.vcf output/SVIMFullOut/
 echo "${job} finished"

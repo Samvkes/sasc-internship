@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J truvari
+#SBATCH -J truvari_cuteSV
 #SBATCH -N 1
 #SBATCH -o /exports/sascstudent/samvank/logs/slurm-%j-%x.out
 #SBATCH -t 24:00:00
@@ -12,6 +12,10 @@ conda activate /exports/sascstudent/samvank/conda2
 
 job="truvari"
 echo "conda activated, now starting ${job}"
-rm -r -f output/truvariOut
-truvari bench -b output/clair3Out/merge_output.vcf.gz -c data/vcfData/HG002/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz -o output/truvariOut
+outputType="cuteSV"
+rm -r -f output/HG005/truvariOut/${outputType}
+truvari bench \
+  -b output/HG005/cuteSVFullOut/cuteFullOut.vcf.gz \
+  -c data/vcfData/HG005/HG005_GRCh38_1_22_v4.2.1_benchmark.vcf.gz \
+  -o output/HG005/truvariOut/${outputType}
 echo "${job} finished"

@@ -15,6 +15,7 @@ echo "conda activated, now starting ${job}"
 svim alignment \
   workfolder/HG005/SVIM \
   data/bamData/HG005/HG005_GRCh38_ONT-UL_UCSC_20200109.phased.bam \
-  data/refData/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta
-mv workfolder/svim/variants.vcf output/SVIMFullOut/
+  data/refData/GCA_000001405.15_GRCh38_no_alt_analysis_set.fasta \
+  --sequence_alleles 
+mv workfolder/svim/variants.vcf output/SVIMFullOut/out2/
 echo "${job} finished"

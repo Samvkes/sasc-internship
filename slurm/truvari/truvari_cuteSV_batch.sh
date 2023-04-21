@@ -15,7 +15,9 @@ echo "conda activated, now starting ${job}"
 outputType="cuteSV"
 rm -r -f output/HG005/truvariOut/${outputType}
 truvari bench \
-  -b output/HG005/cuteSVFullOut/cuteFullOut.vcf.gz \
-  -c data/vcfData/HG005/HG005_GRCh38_1_22_v4.2.1_benchmark.vcf.gz \
-  -o output/HG005/truvariOut/${outputType}
+  -c output/HG005/cuteSVFullOut/decomposed.vcf.gz \
+  -b data/vcfData/HG005/varianten/all.decom.norm.vcf.gz \
+  -o output/HG005/truvariOut/${outputType} \
+  --refdist=1000 \
+  --typeignore
 echo "${job} finished"

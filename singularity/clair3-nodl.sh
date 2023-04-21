@@ -1,4 +1,12 @@
-# Parameters
+#!/bin/bash
+#SBATCH -J claire3
+#SBATCH -N 1
+#SBATCH -o /exports/sascstudent/samvank/logs/slurm-%j-%x.out
+#SBATCH -t 24:00:00
+#SBATCH -D /exports/sascstudent/samvank
+#SBATCH --mem-per-cpu 20G
+#SBATCH -n 4
+
 PLATFORM='ont'
 INPUT_DIR="/exports/sascstudent/samvank/singularityTest/clair3_ont_quickDemo"
 OUTPUT_DIR="${INPUT_DIR}/output"
@@ -6,9 +14,6 @@ OUTPUT_DIR="${INPUT_DIR}/output"
 
 REF="GRCh38_no_alt_chr20.fa"
 BAM="HG003_chr20_demo.bam"
-BASELINE_VCF_FILE_PATH="HG003_GRCh38_chr20_v4.2.1_benchmark.vcf.gz"
-BASELINE_BED_FILE_PATH="HG003_GRCh38_chr20_v4.2.1_benchmark_noinconsistent.bed"
-OUTPUT_VCF_FILE_PATH="merge_output.vcf.gz"
 
 CONTIGS="chr20"
 START_POS=100000
@@ -17,7 +22,6 @@ echo -e "${CONTIGS}\t${START_POS}\t${END_POS}" > ${INPUT_DIR}/quick_demo.bed
 
 THREADS=4
 
-cd ${OUTPUT_DIR}
 
 module load container/singularity/3.11.1
 # Run Clair3 using one command

@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J svim
-#SBATCH -N 4
+#SBATCH -n 4
 #SBATCH -o /exports/sascstudent/samvank/logs/slurm-%j-%x.out
-#SBATCH -t 24:00:00
+#SBATCH -t 12:00:00
 #SBATCH -D /exports/sascstudent/samvank/
 #SBATCH --mem-per-cpu 20G
 

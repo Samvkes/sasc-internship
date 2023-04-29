@@ -10,12 +10,12 @@ echo "activating conda"
 source /share/software/tools/miniconda/3.7/4.7.12/etc/profile.d/conda.sh
 conda activate /exports/sascstudent/samvank/conda2
 
-input=/exports/sascstudent/samvank/output/HG005/clair3FullOut/normalized.decomposed.merge_output.vcf.gz
+input=/exports/sascstudent/samvank/output/HG005/clair3FullOut_longindel/normalized.decomposed.merge_output.vcf.gz
 benchmark=/exports/sascstudent/samvank/data/vcfData/HG005/varianten/all.decom.norm.vcf.gz
 
 job="truvari"
 echo "conda activated, now starting ${job}"
-outputType="clair3"
+outputType="clair3_longindel"
 rm -r -f output/HG005/truvariOut/${outputType}
 
 truvari bench \

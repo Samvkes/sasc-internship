@@ -13,7 +13,8 @@ conda activate /exports/sascstudent/samvank/conda2
 job="SUVIVOR"
 echo "conda activated, now starting ${job}"
 
-rm -r -f output/SURIVOROut/
+rm -r -f output/HG005/SURVIVOROut/
+mkdir output/HG005/SURVIVOROut/
 
 # (params for SURVIVOR merge)
 # File with VCF names and paths
@@ -26,12 +27,12 @@ rm -r -f output/SURIVOROut/
 # Output VCF filename
 
 SURVIVOR merge \
-  scripts/slurm/SURVIVOR/vcfFiles \
+  workfolder/HG005/SURVIVOR/vcfList.txt \
   0.1 \
   2 \
-  1 \
-  1 \
+  0 \
+  0 \
   0 \
   30 \
-  output/SURVIVOROut/all_merged.vcf
+  output/HG005/SURVIVOROut/all_merged.vcf
 echo "${job} finished"

@@ -19,8 +19,8 @@ echo "conda activated, now starting ${job}"
 
 vt normalize -n -r ${ref} ${path}/${input} -o $path/normalized.${input}
 vt decompose $path/normalized.${input} -o ${path}/normalized.decomposed.${input}
-#bgzip ${path}/normalized.decomposed.${input}
-bcftools index -t ${path}/normalized.decomposed.${input}
+bgzip ${path}/normalized.decomposed.${input}
+bcftools index -t ${path}/normalized.decomposed.${input}.gz
 
 echo "${job} finished"
 

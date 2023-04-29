@@ -1,0 +1,7 @@
+*.vcf
+*.gz
+*.png
+*.txt
+*.bam
+*.sam
+*.tbi

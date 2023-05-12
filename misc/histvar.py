@@ -5,7 +5,10 @@ matplotlib.use("Agg")
 import seaborn as sns
 import numpy as np
 import argparse
+import gzip
+from datetime import datetime
 
+IMGDIR = "/exports/sascstudent/samvank/images"
 
 def isIncorrect(event_range: list, only_short: bool, all_variants: bool) -> str:
     if len(set(event_range)) < 2:
@@ -100,14 +103,16 @@ def parseConfig():
     parser.add_argument("file")
     parser.add_argument("-n", "--nomarker", action="store_false",
                         help="don't display unplotted-event-number marker")
-    parser.add_argument("-i", "--image", action="store", nargs="?", metavar=("NAME"), const="img.png", default="img.png",
-                        help="save image (with optional supplied name) instead of displaying")
+    parser.add_argument("-i", "--image", action="store", nargs="?", metavar=("NAME"), const="noneSupplied", default="noneSupplied",
+                        help="specify image path and name")
     parser.add_argument("-b", "--bins", action="store", nargs=1, type=int, default=[100],
                         help="amount of bins")
     parser.add_argument("-r", "--range", action="store", nargs=2, metavar=("MIN", "MAX"), type=int, default=[0,0],
                         help="range of event-lengths to look at, min max (inclusive)")
     parser.add_argument("-l", "--linear", action="store_true",
                         help="show linear y-axis instead of logarithmic")
+    parser.add_argument("-c", "--check", action="store_true",
+                        help="check whether input is a valid vcf file")
     variant_types_group = parser.add_mutually_exclusive_group()
     variant_types_group.add_argument("-s", "--short", action="store_true",
                         help="plot histogram of short (<49bp) variants instead")
@@ -119,6 +124,42 @@ def parseConfig():
 
 sns.set_theme()
 args = parseConfig()
+
+
+if args.check:
+    counter = 0
+    try:
+        for variant in VCF(args.file):
+            counter += 1
+            pass
+    except Exception as e:
+        r = "\033[31m"
+        s = "\033[0m"
+        print(f"{r}One or more variants seem to be corrupted / formatted wrong.")
+        print(f"(You may want to run 'bcftools view {args.file} > /dev/null' for more details)")
+        print(f"We're grabbing the offending line:{s}\n")
+        lineCounter = 0
+        headers = True
+        colnames = ""
+        lastLine = ""
+        for line in gzip.open(args.file, "r"):
+            if headers == True:
+                decoded_line = line.decode("utf-8")
+                if decoded_line != "##":
+                    if decoded_line[0] == "#":
+                        colnames = decoded_line.strip()
+                    else:
+                        headers = False
+            else:
+                lineCounter += 1
+            if lineCounter == counter:
+                print(f"\t\t\t{r}{colnames}\nLast correct line:{s}\t{lastLine}\n{r}First incorrect line:{s}\t{line.decode('utf-8')}")
+                break
+            else:
+                lastLine = line.decode("utf-8")
+
+    exit()
+
 
 if args.range != [0,0]:
     if isIncorrect(args.range, args.short, args.all):
@@ -141,7 +182,14 @@ ar = np.array(lenList)
 plt.xlabel("indel Length (bp)")
 plt.ylabel("amount of events")
 sns.histplot(data=ar, bins=args.bins[0], )
-plt.savefig(args.image, dpi=300)
+if args.image != "noneSupplied":
+    name = args.image
+else:
+    now = datetime.now()
+    filename =  args.file.split("/")[-1]
+    name =  IMGDIR + "/" + filename +  now.strftime("_%m-%d_%H:%M") + ".png"
+
+plt.savefig(name, dpi=300)
 print(f"Saved plot as {args.image}\n"
       f"Amount of plotted events: {len(lenList)} (largest in: {max(lenList)}bp, largest del: {min(lenList)}bp)\n"
       f"Amount of not-plotted events: {rest}")

@@ -16,7 +16,7 @@ benchmark=/exports/sascstudent/samvank/data/vcfData/HG002/HG002_SVs_Tier1_v0.6.v
 job="truvari"
 echo "conda activated, now starting ${job}"
 outputType="clair3_longindel"
-rm -r -f output/HG005/truvariOut/${outputType}
+rm -r -f output/HG002/truvariOut/${outputType}
 
 truvari bench \
   -c ${input} \

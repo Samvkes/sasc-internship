@@ -26,9 +26,10 @@ combinationFile=$2
 # Output VCF filename
 cd ${workfolder}
 
+# consider using differnt modes (union first)
 SURVIVOR merge \
   combinationFiles/${combinationFile} \
-  0.1 \
+  1000 \
   2 \
   0 \
   0 \

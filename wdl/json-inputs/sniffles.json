@@ -1,5 +1,0 @@
-{
-  "VariantCall.input_bam": "/exports/sascstudent/samvank/ds.bam",
-  "VariantCall.output_name": "out.vcf"
-}
-
